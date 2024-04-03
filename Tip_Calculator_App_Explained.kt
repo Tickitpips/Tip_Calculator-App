@@ -193,33 +193,33 @@ fun TipTimeLayout() {
                 .padding(bottom = 16.dp, top = 40.dp)
                 .align(alignment = Alignment.Start)
         )
-        EditNumberField(
-            label = R.string.bill_amount,
+        EditNumberField(                                          //This is a function call to display a textfield 
+            label = R.string.bill_amount,                         //The arguments
             leadingIcon = R.drawable.money,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             ),
-            value = amountInput,
+            value = amountInput,                                  //The value inserted is stored in the amountInput variable
             onValueChanged = { amountInput = it },
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth(),
         )
-        EditNumberField(
-            label = R.string.how_was_the_service,
+        EditNumberField(                                          //This is another function call to display a textfield                                   
+            label = R.string.how_was_the_service,                 //The arguments
             leadingIcon = R.drawable.percent,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
             ),
-            value = tipInput,
+            value = tipInput,                                     //The value inserted is stored in the tipInput variable
             onValueChanged = { tipInput = it },
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth(),
         )
-        RoundTheTipRow(
+        RoundTheTipRow(                                           //Calling the RoundTheTipRow function
             roundUp = roundUp,
             onRoundUpChanged = { roundUp = it },
             modifier = Modifier.padding(bottom = 32.dp)
@@ -233,8 +233,8 @@ fun TipTimeLayout() {
 }
 
 @Composable
-fun EditNumberField(
-    @StringRes label: Int,
+fun EditNumberField(                       //Defining a textfield function to accept user input
+    @StringRes label: Int,                 //
     @DrawableRes leadingIcon: Int,
     keyboardOptions: KeyboardOptions,
     value: String,
@@ -253,8 +253,8 @@ fun EditNumberField(
 }
 
 @Composable
-fun RoundTheTipRow(
-    roundUp: Boolean,
+fun RoundTheTipRow(                             //Function creates a row that displays text to ask the user to toggle between round-up/no-round amount functionality
+    roundUp: Boolean,                           //Declaration of roundUp Boolean parameter
     onRoundUpChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -269,7 +269,7 @@ fun RoundTheTipRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentWidth(Alignment.End),
-            checked = roundUp,
+            checked = roundUp,                   //roundUp becomes true
             onCheckedChange = onRoundUpChanged
         )
     }
@@ -280,11 +280,13 @@ fun RoundTheTipRow(
  * according to the local currency.
  * Example would be "$10.00".
  */
+
+ // This is a function to calculate the tip amount to display based on the user's input
 private fun calculateTip(amount: Double, tipPercent: Double = 15.0, roundUp: Boolean): String {
     var tip = tipPercent / 100 * amount
-    if (roundUp) {
+    if (roundUp) {                       //if the roundUp Boolean variable is true, then execute the following
         tip = kotlin.math.ceil(tip)
     }
-    return NumberFormat.getCurrencyInstance().format(tip)
+    return NumberFormat.getCurrencyInstance().format(tip)    //then return this at the end
 }
 
